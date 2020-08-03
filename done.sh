@@ -13,3 +13,4 @@ for n in questions/*.java; do
 done
 
 rm -rf questions/*
+cp /dev/null pairs.txt
