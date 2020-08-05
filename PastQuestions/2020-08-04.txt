@@ -1,0 +1,281 @@
+import java.util.ArrayList;
+
+public class Carter{
+	public static void main(String [] args){
+		System.out.println("Carter running");
+    int[] sol=fibRange(-1, 5);
+    for(int a=0;a<sol.length;a++){
+      System.out.println(sol[a]);
+    }
+	}
+  public static int [] fibRange(int i, int j){
+    int max=Math.max(i, j);
+    int min=i+j-max;
+    ArrayList<Integer> arr=new ArrayList<Integer>();
+    int lastFib=1;
+    int lastSecFib=1;
+    if(min<=1){
+      arr.add(1);
+      arr.add(1);
+    }
+    while(lastFib<=max){
+      int currentFib=lastFib+lastSecFib;
+      if(currentFib>=min&&currentFib<=max){
+        arr.add(currentFib);
+      }
+      lastSecFib=lastFib;
+      lastFib=currentFib;
+
+    }
+    int[] sol=new int[arr.size()];
+    for(int a=0;a<arr.size();a++){
+      sol[a]=arr.get(a);
+    }
+    return sol;
+  }
+}
+/*
+  Given two integers i and j, representing the range of number sequences in Fibonacci numbers, return the Fibonacci numbers in a valid inclusive range.
+
+  constraints:
+    Integer.MIN_VALUE <= i <= 500
+    Integer.MIN_VALUE <= j <= 500
+
+  Fibonacci: 1, 1, 2, 3, 5, 8, ...
+  Seq Number: 1, 2, 3, 4, 5, 6, ...
+  Example:
+    i = 1 and j = 5
+    return: [1, 1, 2, 3, 5]
+  
+    i = -10, j = 0
+    return []
+        no valid number in range
+    
+    i = -10, j = 3
+      return [1, 1, 2]
+
+    i = 5, j = 1
+    return: [1,1,2,3,5]
+
+  If this method is going to be called repeatedly, can you optimize it somehow?
+
+    public int [] fibRange(int i, int j){
+
+    }
+*/
+
+
+public class Michaelliu{
+
+  public Michaelliu(){
+    System.out.println(longestPal("cbbd"));
+  }
+
+  public String longestPal(String s){
+    int length = s.length();
+    boolean [][] dp = new boolean [length][length];
+    int startIndex = 0;
+    int maxLen = 0;
+    for(int len = 1; len <= length; len ++){
+      for(int i = 0; i <= length-len; i ++){
+        int j = i + len -1;
+        dp[i][j] = (s.charAt(i) == s.charAt(j)) && (len < 3 || dp[i+1][j-1]);
+        if(dp[i][j]){
+          if(len > maxLen){
+            maxLen = len;
+            startIndex = i;
+          }
+        }
+      }
+    }
+    return s.substring(startIndex, startIndex+maxLen);
+
+  }
+
+
+	public static void main(String [] args){
+		System.out.println("MichaelLiu running");
+
+    Michaelliu m = new Michaelliu();
+	}
+}
+/*
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example 1:
+
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+Example 2:
+
+Input: "cbbd"
+Output: "bb"
+*/
+
+
+import java.util.ArrayList;
+import java.util.*;
+
+
+
+public class Michaelnuo{
+
+	public static void main(String [] args){
+		System.out.println("MichaelNuo running");
+    int[] test={1,2,3,4,5};
+    List<List<Integer>> result=findAllPairsCarter(test,6);
+      System.out.println(result);
+	}
+
+/*
+given an array of integers, write a function to find all unique pairs of numbers
+that adds up to an integer "a", return null if nothing is found
+
+Pair<Integer, Integer> 
+*/
+
+  public static List<List<Integer>> findAllPairsCarter(int [] givenArray, int givenNum){
+    Set<Integer> set = new HashSet();
+    Set<List<Integer>> ans = new HashSet();
+    for(int i : givenArray) set.add(i);
+    for(int i : givenArray) {
+      if(set.contains(givenNum - i)){
+        List<Integer> temp = new ArrayList();
+        temp.add(i);
+        temp.add(givenNum-i);
+        ans.add(temp);
+      }
+    }
+    return new ArrayList(ans);
+  }
+
+
+  public static List<List<Integer>>  findAllPairs(int[] givenArray,int givenNum){
+      List<List<Integer>> list =  new ArrayList<>();
+      for(int i=0;i<givenArray.length;i++){
+        List<List<Integer>> jojo =findAllThePairs(givenArray,i,givenArray[i],givenNum);
+        for(int j=0;j<jojo.size();j++){
+                  if(findIfPairs(list,jojo.get(j))){
+                    list.add(jojo.get(j));
+                  }
+        }
+    }
+    return list;
+  }
+    public static List<List<Integer>> findAllThePairs(int[] givenArray,int position,int num,int givenNum){
+      List<List<Integer>> list =  new ArrayList<>();
+      /*
+        when adding :
+        List<Integer> newList = new ArrayList();
+        newList.add(1);
+        newList.add(2);
+        list.add(newList);
+      
+      */
+      //givenArray[position]=null;
+      for(int i=0;i<givenArray.length;i++){
+          if(num+givenArray[i]==givenNum){
+            List<Integer> newList = new ArrayList();
+            newList.add(num);
+            newList.add(givenArray[i]);
+            list.add(newList);
+          }
+      }
+      return list;
+    }
+      public static boolean  findIfPairs(List<List<Integer>> givenArray,List<Integer> givenPair){
+        List<Integer> reserve=new ArrayList();
+        reserve.add(givenPair.get(1));
+        reserve.add(givenPair.get(0));
+        for(int i=0;i<givenArray.size();i++){
+          if(givenArray.get(i).equals(givenPair) || givenArray.get(i).equals(reserve)){
+
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+}
+
+
+
+
+import java.util.*;
+import java.util.Map.Entry;
+
+
+public class Vincent{
+
+  public static int[] solution( int[] inputArray)
+  {
+    int[] sortedArray = new int[inputArray.length];
+
+    Map<Integer, Integer> countMap = new HashMap();
+    
+    for (int i = 0; i < inputArray.length; i++)
+    {
+      if (countMap.containsKey(inputArray[i]) )
+      {
+        
+        countMap.put(inputArray[i], countMap.get(inputArray[i]) + 1);
+      }
+      else
+      {
+        countMap.put(inputArray[i], 1);
+      }
+    }
+
+    ArrayList<Entry<Integer, Integer>> listOfPairs =
+      new ArrayList<>(countMap.entrySet());
+
+    Collections.sort(listOfPairs, 
+      new Comparator<Entry<Integer, Integer>>()
+      {
+        public int compare(Entry<Integer, Integer> x, 
+        Entry<Integer, Integer> y)
+        {
+          return x.getValue().compareTo(y.getValue());
+        }
+      });
+    
+    for (int i = 0; i < listOfPairs.size(); i++)
+    {
+      sortedArray[i] = listOfPairs.get(i).getKey();
+    }
+
+    return sortedArray;
+  }
+
+	public static void main(String [] args){
+		System.out.println("Vincent running");
+    
+    int[] inputArray = new int[]{ 99, 99, 1,1,1,4,4,4,4,4,3,3 };
+
+    int[] printArr = solution(inputArray);
+    
+    for (int i = 0; i < printArr.length; i++)
+    {
+      if (printArr[i] == 0) continue;
+      System.out.print(printArr[i]+" ");
+    }
+    System.out.println();
+	}
+}
+/*
+Sorting Elements of an Array by Frequency 
+
+given an array of int int[] arr1
+
+sort the array base on the frequency of each item in it
+
+return the sorted array
+
+Hint for michael: try to use hashmap
+
+
+*/
+
+

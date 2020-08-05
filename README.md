@@ -7,7 +7,7 @@ Before you start, create a <your name>.txt file under Descriptions and put in yo
 ```bash
   ./pair.sh (insert as many participant names)
 ```
-Head to `questions/` to see .java files created for each person. Edit in the file where your name is matched to. When you want to test run, do `./sol.sh (your name)` to run the file that is corresponding to your name
+Head to `questions/` to see .java files created for each person. Edit in the file of your name. When you want to test run, do `./sol.sh (your name)` to run the file that is corresponding to your name
 
 # After your session
 

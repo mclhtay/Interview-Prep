@@ -1,0 +1,13 @@
+/*
+Sorting Elements of an Array by Frequency 
+
+given an array of int int[] arr1
+
+sort the array base on the frequency of each item in it
+
+return the sorted array
+
+Hint for michael: try to use hashmap
+
+
+*/

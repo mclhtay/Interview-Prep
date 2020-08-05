@@ -14,7 +14,6 @@ do
   pList="$pList $var"
   touch "questions/$var.java"
   echo 'public class '$var'{\n\tpublic static void main(String [] args){\n\t\tSystem.out.println("'$var' running");\n\t}\n}' > questions/$var.java
-  cat Descriptions/$var.txt >> questions/$var.java
 done
 
 export PLIST="$pList"

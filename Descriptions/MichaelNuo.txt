@@ -1,0 +1,6 @@
+/*
+given an array of integers, write a function to find all unique pairs of numbers
+that adds up to an integer "a", return null if nothing is found
+
+
+*/
