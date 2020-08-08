@@ -24,5 +24,6 @@ to save all questions content to a file under PastQuestions and will remove toda
 
 You can now have a <your name>.setting.json file under the UserSettings directory with a field: `"preferredLanguage": "<java or python>" `
 which would get picked up when making matches
+there are also other commands, see `UserSettings/Example`
 
 if you set python as your preferredLanguage, when calling sol.sh you have to do: `./sol.sh -p <your name> `

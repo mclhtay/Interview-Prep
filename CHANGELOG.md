@@ -6,3 +6,6 @@
 
 # 0.1.0
 - Added python support and basic user settings
+
+# 0.1.1
+- Added util and import for user settings

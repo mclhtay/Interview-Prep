@@ -1,4 +1,4 @@
-import json
+cimport json
 import os
 from parse import parse_language
 

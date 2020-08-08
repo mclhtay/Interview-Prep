@@ -29,7 +29,7 @@ def add_question(a, b):
   with open(to_write_from, 'r') as fp2:
     f2 = fp2.read()
 
-  f2 = f'{user_dict["comment"][0]}\n\t{str(f2)}\n{user_dict["comment"][1]}\n{user_dict["template"]}'
+  f2 = f'{user_dict["imports"]}\n{user_dict["comment"][0]}\n\t{str(f2)}\n{user_dict["comment"][1]}\n{user_dict["template"]}'
 
   with open(to_write_in, 'w') as f:
     f.write(f2)
