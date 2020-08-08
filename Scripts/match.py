@@ -51,19 +51,11 @@ def make_tuple(ps):
   return pair_list
 
 
-def set_os_params(tl):
-  open("pairs.txt", "w").close()
-  f = open("pairs.txt", "w")
-  for t in tl:
-    f.write(t[0]+"="+t[1]+"\n")
-  f.close()
-
 participant_list = os.environ['PLIST']
 
 participant_list = str.split(participant_list)
 clean_list(participant_list)
 pairs = make_tuple(participant_list)
-set_os_params(pairs)
 
 print("Pair matching completed")
 for tup in pairs:
