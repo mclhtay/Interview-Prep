@@ -1,6 +1,13 @@
 #!/bin/sh
 
 pList=""
+PERSONALIZE=""
+
+
+if [ $1 = '-u' ]; then
+  PERSONALIZE=$1; shift
+fi
+
 if  [ "$#" -lt 2 ];then
   echo "At least 2 args must be provided"
   exit
@@ -12,11 +19,10 @@ echo "Matching pairs...."
 for var in "$@"
 do
   pList="$pList $var"
-  touch "questions/$var.java"
-  echo 'public class '$var'{\n\tpublic static void main(String [] args){\n\t\tSystem.out.println("'$var' running");\n\t}\n}' > questions/$var.java
 done
 
 export PLIST="$pList"
 
+cd Scripts/
 python match.py
-
+cd ..

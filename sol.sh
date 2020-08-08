@@ -1,29 +1,20 @@
 #!/bin/sh
-# filename="pairs.txt"
 
-# splitIndex=-1
-# s=""
-# strindex() {
-#   x="${1%%$2*}"
-#   [ "$x" = "$1" ] && echo -1 || splitIndex="${#x}"
-# }
-
-# while read line; do
-# strindex "$line" "="
-# STRLENGTH=`echo -n $line | wc -m`
-# beg=$(echo "$line" | cut -c1-$splitIndex)
-# after=$((splitIndex+2))
-# end=$(echo "$line" | cut -c$after-$STRLENGTH)
-#   if [ $1 = $beg ]; then
-#     cd "questions/"
-#     javac $end.java
-#     java $end
-#     cd ..
-#     break
-#   fi
-# done < $filename
 cd "questions/"
-FILE="$1.java"
+COMPILE_OPTION="java"
+
+FILE=""
+
+if [ $1 = '-p' ];then
+  FILE="$2.py"
+  COMPILE_OPTION="python"; shift
+elif [ $1 = '-j' ]; then
+  FILE="$2.java";shift
+else
+  FILE="$1.java"
+fi
+
+
 
 if [ -f $FILE ]; then
   echo "\n\nCompiling your Code\n\n"
@@ -32,8 +23,12 @@ else
   exit
 fi
 
-javac $1.java
-java $1
+if [ $COMPILE_OPTION = "python" ]; then
+  python $1.py
+else
+  javac $1.java
+  java $1
+fi
 cd ..
 
 

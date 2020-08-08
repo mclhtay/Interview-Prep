@@ -15,3 +15,11 @@ Head to `questions/` to see .java files created for each person. Edit in the fil
   ./done.sh (date)
 ```
 to save all questions content to a file under PastQuestions and will remove today's content
+
+
+# User Settings
+
+You can now have a <your name>.setting.json file under the UserSettings directory with a field: `"preferredLanguage": "<java or python>" `
+which would get picked up when making matches
+
+if you set python as your preferredLanguage, when calling sol.sh you have to do: `./sol.sh -p <your name> `

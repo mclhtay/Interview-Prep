@@ -1,5 +1,8 @@
 import os
 import random
+from load_settings import create_setting_dict
+
+cur_path = os.path.dirname(__file__)
 
 def clean_list(participants):
   for i in range(len(participants)):
@@ -13,22 +16,24 @@ def make_rotate(l):
   n.append(l[0])
   return n
 
+
 def add_question(a, b):
-  cur_path = os.path.dirname(__file__)
-  to_write_in = os.path.relpath(f'../Interview-Prep/questions/{a}.java', cur_path)
-  to_write_from = os.path.relpath(f'../Interview-Prep/Descriptions/{b}.txt',cur_path)
 
-  f1 = f2 = ""
+  user_dict = create_setting_dict(a)
 
-  with open(to_write_in, 'r') as fp1:
-    f1 = fp1.read()
+  to_write_in = os.path.relpath(f'../questions/{a}.{user_dict["format"]}', cur_path)
+  to_write_from = os.path.relpath(f'../Descriptions/{b}.txt',cur_path)
+
+  f2 = ""
+
   with open(to_write_from, 'r') as fp2:
     f2 = fp2.read()
 
-  f2 = f'/* {f2} */'
-  f3 = f1 + f2
+  f2 = f'{user_dict["comment"][0]}\n\t{str(f2)}\n{user_dict["comment"][1]}\n{user_dict["template"]}'
+
   with open(to_write_in, 'w') as f:
-    f.write(f3)
+    f.write(f2)
+    
 
 def make_tuple(ps):
   pair_list = []
@@ -36,7 +41,7 @@ def make_tuple(ps):
   random.shuffle(ps)
   shifted_list = make_rotate(ps)
   
-  for a,b in ps, shifted_list:
+  for a,b in zip(ps, shifted_list):
     pair_list.append([a, b])
 
   for i in range(len(pair_list)):

@@ -1,0 +1,276 @@
+import java.util.*;
+public class Carter{
+	public static void main(String [] args){
+		System.out.println("Carter running");
+
+    int [] test = {2, 7, 11, 15};
+    int [] ans = solution(test, 22);
+    for(int i : ans) System.out.print(i+" ");
+    System.out.println();
+	}
+
+
+  public static int [] solution(int [] nums, int target){
+    int [] ans = new int [2];
+    Map<Integer, Integer> map = new HashMap<>();
+    for(int i =0; i < nums.length; i++){
+      map.put(nums[i], i);
+    }
+    for(int i : nums){
+      if(map.containsKey(target-i) && target-i != i){
+        ans[0] = map.get(i);
+        ans[1] = map.get(target-i);
+        return ans;
+      }
+    }
+    return ans;
+  }
+}
+/* 
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+*/ 
+
+
+import java.util.*;
+public class MichaelLiu{
+
+  class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    int val;
+
+    public TreeNode(int x){
+      this.val = x;
+    }
+  }
+
+  public MichaelLiu(){
+    TreeNode test1 = new TreeNode(1);
+    test1.left = new TreeNode(2);
+    test1.right = new TreeNode(3);
+    test1.left.left = new TreeNode(4);
+    test1.right.left = new TreeNode(5);
+    test1.right.left.right = new TreeNode(6);
+
+    int [] ans = new int[]{1, 2, 4, 3, 5, 6};
+    List<Integer> result = preorder(test1, new ArrayList());
+    for(int i = 0; i < ans.length; i ++){
+      if(result.get(i) != ans[i]){
+        System.out.println("Failed: "+result.get(i)+" not equal to "+ans[i]);
+        return;
+      }
+    }
+    System.out.println("Passed");
+  }
+	public static void main(String [] args){
+		System.out.println("MichaelLiu running");
+    MichaelLiu m = new MichaelLiu();
+	}
+
+  public List<Integer> postorder(TreeNode root, List<Integer> list){
+    if(root != null){
+      postorder(root.left, list);
+      postorder(root.right, list);
+      list.add(root.val);
+    }
+    return list;
+  }
+
+  // return the preorder traversal given the root node of a tree
+  public List<Integer> preorder(TreeNode root,List<Integer> list ){
+    if(root!=null){
+        list.add(root.val);
+
+      preorder(root.left,list);
+      preorder(root.right,list);
+
+    }
+    return list;
+  }
+
+  // given the root node of two trees, return true if the two trees are the same
+
+  // if node.left == null && node.right == null then it is a leaf
+  public boolean isSameTreeCarter(TreeNode root1, TreeNode root2){
+    if(root1 == null && root2 == null) return true;
+    if(root1 == null || root2 == null) return false;
+    if(root1.val != root2.val) return false;
+    return isSameTreeCarter(root1.left, root2.left) && isSameTreeCarter(root1.right, root2.right);
+  }
+
+  public boolean isSameTree(TreeNode root1, TreeNode root2){
+     /* if(root1.left == null && root1.right == null && root2.left == null && root2.right == null){*/
+     if(root1==null && root2==null){
+        return true;
+        
+      }
+      else{
+        
+        if(root1.val!=root2.val){
+          return false;
+        }
+        else if(root1==null || root2==null){
+        return false;
+        
+      }
+
+        else if(root1.left == null || root1.right == null || root2.left == null || root2.right == null){
+          return false;
+        }
+        /*
+        else if(root1.left == null && root2.left != null ){
+            return false;
+        }
+        else if(root1.right == null && root2.right != null){
+            return false;
+        }
+        else if(root2.left == null && root1.left != null ){
+            return false;
+        }
+        else if(root2.right == null && root1.right != null){
+            return false;
+        }
+        else if(root2.right.val != root1.right.val || root2.left.val != root1.left.val){
+            return false;
+        }*/
+        if(!isSameTree(root1.right,root2.right)){
+          return false;
+        }
+          return isSameTree(root1.left,root2.left);
+        }
+      }
+  }
+
+
+
+
+
+
+
+
+import java.util.*;
+public class Vincent{
+
+  class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    int val;
+
+    public TreeNode(int x){
+      this.val = x;
+    }
+  }
+
+  public Vincent(){
+		System.out.println("Vincent running");
+    
+    int[] inorder = {10,9,3,15,20,7};
+    int[] postorder = {10, 9,15,7,20,3};
+    TreeNode t=sol(inorder, postorder);
+    if(t.val == 3 && t.left.val == 9 && t.left.left.val == 10&& t.right.val ==20 && t.right.left.val == 15 && t.right.right.val == 7) System.out.println("Passed");
+    else System.out.println("Failed");
+  }
+  
+	public static void main(String [] args){
+    Vincent v = new Vincent();
+	}
+  public TreeNode sol(int[] inorder, int[]  postorder){
+    // return sol2(inorder, postorder, 0, inorder.length-1, 0, postorder.length-1);
+    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    for(int i =0; i < inorder.length; i ++){
+      map.put(inorder[i], i);
+    }
+    return make(inorder, postorder, 0, postorder.length-1, postorder.length-1, map);
+  }
+
+  public TreeNode make(int [] inorder, int [] postorder, int start, int end, int index, Map<Integer, Integer>map){
+    if(start > end) return null;
+    TreeNode root = new TreeNode(postorder[index]);
+    int curr = map.get(postorder[index]);
+
+    root.right = make(inorder, postorder, curr+1, end, index-1, map);
+    root.left = make(inorder, postorder, start, curr-1, index -(end - curr)-1, map);
+    return root;
+  }
+
+  public TreeNode sol2(int [] inorder, int [] postorder, int inIndex,int inIndex2, int postIndex, int postIndex2){
+    if(inIndex2==inIndex){
+      return new TreeNode(postorder[postIndex2]);
+    }
+    TreeNode root=new TreeNode(postorder[postIndex2]);
+    try{
+    TreeNode rightNode=sol2(inorder, postorder,findindex(inorder, root.val)+1, inIndex2,findindex(postorder, inorder[findindex(inorder, root.val)-1])+1 ,postIndex2-1);
+    root.right=rightNode;
+    }catch(Exception e){}
+    try{
+    TreeNode leftNode=sol2(inorder, postorder,inIndex, findindex(inorder, root.val)-1, postIndex,findindex(postorder, inorder[findindex(inorder, root.val)+1]) -1);
+    root.left=leftNode;
+    }catch(Exception e){}
+    return root;
+  }
+  /*
+ 
+Given inorder and postorder traversal of a tree, construct the binary tree.
+
+* There are no duplicates in the tree
+
+For example, given
+int[] inorder = {10, 9,3,15,20,7};
+int[] postorder = {10, 9,15,7,20,3};
+
+
+return a tree represented by:
+    3
+   / \
+  9  20
+ /   /  \
+10   15   7
+
+
+public TreeNode buildTree(int [] inorder, int [] postorder){
+  
+}
+
+
+*/
+  public static int findindex(int arr[], int t) 
+    { 
+  
+        // if array is Null 
+        if (arr == null) { 
+            return -1; 
+        } 
+  
+        // find length of array 
+        int len = arr.length; 
+        int i = 0; 
+  
+        // traverse in the array 
+        while (i < len) { 
+  
+            // if the i-th element is t 
+            // then return the index 
+            if (arr[i] == t) { 
+                return i; 
+            } 
+            else { 
+                i = i + 1; 
+            } 
+        } 
+        return -1; 
+    }
+}
+
+
+ 
+
+
