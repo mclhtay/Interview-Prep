@@ -17,5 +17,10 @@ for n in questions/*.py; do
   echo "\n\n" >> PastQuestions/$1.txt
 done
 
+for n in questions/*.js; do
+  cat $n >> PastQuestions/$1.txt
+  echo "\n\n" >> PastQuestions/$1.txt
+done
+
 rm -rf questions/*
 cp /dev/null pairs.txt

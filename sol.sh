@@ -10,6 +10,9 @@ if [ $1 = '-p' ];then
   COMPILE_OPTION="python"; shift
 elif [ $1 = '-j' ]; then
   FILE="$2.java";shift
+elif [ $1 = '-js' ]; then
+  FILE="$2.js";shift
+  COMPILE_OPTION="javascript";
 else
   FILE="$1.java"
 fi
@@ -25,6 +28,8 @@ fi
 
 if [ $COMPILE_OPTION = "python" ]; then
   python $1.py
+elif [ $COMPILE_OPTION = "javascript" ]; then
+  node $1.js
 else
   javac $1.java
   java $1

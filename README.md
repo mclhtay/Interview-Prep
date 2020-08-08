@@ -22,7 +22,7 @@ to save all questions content to a file under PastQuestions and will remove toda
 
 ### User Settings
 
-You can now have a <your name>.setting.json file under the UserSettings directory with a field: `"preferredLanguage": "<java or python>" `
+You can now have a <your name>.setting.json file under the UserSettings directory with a field: `"preferredLanguage": "<java for example>" `
 which would get picked up when making matches
 there are also other commands, see `UserSettings/Example`
 

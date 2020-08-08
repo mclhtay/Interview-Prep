@@ -1,5 +1,9 @@
 {
+
+  // options: java, python, javascript
   "preferredLanguage": "java",
+  
+  // these can be excluded, included as true, included as false
   "includeImports": true,
   "includeUtils": true
 }

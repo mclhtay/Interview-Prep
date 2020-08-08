@@ -9,3 +9,6 @@
 
 # 0.1.1
 - Added util and import for user settings
+
+# 0.1.2
+- Added javascript support

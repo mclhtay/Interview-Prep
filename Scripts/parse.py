@@ -51,6 +51,14 @@ def parse_python(setting: dict, user: str) -> dict:
     parsed_dict['imports'] = ""
   return parsed_dict
 
+def parse_javascript(setting: dict, user: str) -> dict:
+  parsed_dict = {}
+  parsed_dict['format'] = 'js'
+  parsed_dict['comment'] = ["/*", "*/"]
+  parsed_dict['template'] = 'main()\n\nfunction main(){\n\tconsole.log("'+user+' running")\n}'
+  parsed_dict['imports'] = ""
+  return parsed_dict
+
 def parse_language(setting: dict, user: str) -> dict:
 
   p = setting['preferredLanguage']
@@ -59,5 +67,7 @@ def parse_language(setting: dict, user: str) -> dict:
     return parse_java(setting, user)
   elif p == 'python':
     return parse_python(setting, user)
+  elif p =='javascript':
+    return parse_javascript(setting, user)
   else:
     return parse_default(setting, user)
